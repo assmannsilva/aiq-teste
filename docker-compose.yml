@@ -1,0 +1,52 @@
+services:
+  app:
+    image: app
+    container_name: app
+    build:
+        context: .
+        dockerfile:  ./docker/php/Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www
+    ports:
+    - "9000:9000"
+    volumes:
+        - ./:/var/www
+    depends_on:
+        - postgres
+    networks:
+        - aiq-teste
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - aiq-teste
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:  
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - aiq-teste
+
+volumes:
+  pgdata:
+
+networks:
+  aiq-teste:
+    driver: bridge
