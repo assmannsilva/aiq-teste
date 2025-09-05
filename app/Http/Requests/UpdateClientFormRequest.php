@@ -13,10 +13,7 @@ class UpdateClientFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $client = $this->user();
-        $clientId = $this->route('id');
-
-        return $client && $client->id === $clientId;
+        return true;
     }
 
     /**
@@ -26,15 +23,15 @@ class UpdateClientFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $clientId = $this->route('id');
+        $clientId = $this->user()->id;
         return [
-            'email' => [
-                'nullable',
-                'email',
-                'max:255',
-                Rule::unique('clients', 'email')->ignore($clientId),
+            "email" => [
+                "nullable",
+                "email",
+                "max:255",
+                Rule::unique("clients", "email")->ignore($clientId),
             ],
-            'name' => 'nullable|string|max:255|min:3',
+            "name" => "nullable|string|max:255|min:3",
         ];
     }
 

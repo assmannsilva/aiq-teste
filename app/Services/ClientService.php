@@ -20,13 +20,13 @@ class ClientService
         $client = $this->clientRepository->create($data);
         $token = $client->createToken("client_api_token")->plainTextToken;
         return [
-            'client' => $client,
-            'token' => $token,
+            "client" => $client,
+            "token" => $token,
         ];
     }
 
     /**
-     * Creates the Client
+     * Updates the Client
      * @param Client $client
      * @return Client
      */
