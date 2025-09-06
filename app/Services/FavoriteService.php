@@ -26,8 +26,7 @@ class FavoriteService
     public function listClientFavorites(Client $client, ?int $perPage): Paginator
     {
         if (!$perPage) $perPage = self::PER_PAGE_DEFAULT_PAGINATION;
-
-        $favorites = $this->favoriteRepository->getByClientId($client->id, self::PER_PAGE_DEFAULT_PAGINATION);
+        $favorites = $this->favoriteRepository->getByClientId($client->id, $perPage);
         $products = [];
         foreach ($favorites as $favorite) {
             $productDto = $this->productsService->getCachedProductByFakeStoreId($favorite->fake_store_product_id);

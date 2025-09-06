@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchFavoritesFormRequest;
 use App\Http\Requests\StoreFavoriteFormRequest;
 use App\Services\FavoriteService;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class FavoritesController extends Controller
      *   @OA\Parameter(
      *     name="per_page",
      *     in="query",
-     *     description="Quantidade de itens por página",
+     *     description="Quantidade de itens por página (máximo 100)",
      *     required=false,
      *     @OA\Schema(type="integer", example=10)
      *   ),
@@ -33,16 +34,22 @@ class FavoritesController extends Controller
      *   ),
      *   @OA\Response(
      *     response=200,
-     *     description="Lista de favoritos",
+     *     description="Lista de favoritos paginada",
      *     @OA\JsonContent(
-     *       type="array",
-     *       @OA\Items(ref="#/components/schemas/FavoriteProduct")
+     *       type="object",
+     *       @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/FavoriteProduct")),
+     *       @OA\Property(property="current_page", type="integer", example=1),
+     *       @OA\Property(property="per_page", type="integer", example=10),
+     *       @OA\Property(property="total", type="integer", example=50),
+     *       @OA\Property(property="last_page", type="integer", example=5),
+     *       @OA\Property(property="path", type="string", example="http://localhost:8000/api/favorites"),
+     *       @OA\Property(property="query", type="object", example={"per_page": 10})
      *     )
      *   ),
      *   @OA\Response(response=401, description="Não autenticado")
      * )
      */
-    public function index(Request $request)
+    public function index(SearchFavoritesFormRequest $request)
     {
         $client = $request->user();
         $perPage = $request->input("per_page");
