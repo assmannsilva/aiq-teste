@@ -12,6 +12,7 @@ class Favorite extends Model
 
     protected $fillable = [
         'product_id',
+        'client_id'
     ];
 
     public function client()
