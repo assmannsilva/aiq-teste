@@ -1,0 +1,449 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Produtos Favoritos",
+        "description": "Documentação da API desenvolvida para o desafio técnico da aiqfome",
+        "contact": {
+            "email": "caueassmannsilva114@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Servidor API"
+        }
+    ],
+    "paths": {
+        "/clients": {
+            "post": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Cria um novo cliente",
+                "operationId": "bab4421f81e58cfc3257aed9c4a7af61",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Cauê Assmann Silva"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "caue@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cliente criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateClientResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/clients/me": {
+            "get": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Exibe o cliente autenticado",
+                "operationId": "bd90f6e6f788a6c92be06e6d40d5f3e3",
+                "responses": {
+                    "200": {
+                        "description": "Dados do cliente autenticado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "client": {
+                                            "$ref": "#/components/schemas/Client"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Remove o cliente autenticado",
+                "operationId": "778a74098d688bdcfa1015159608c47b",
+                "responses": {
+                    "204": {
+                        "description": "Cliente removido com sucesso (sem conteúdo)"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Atualiza os dados do cliente autenticado",
+                "operationId": "e14352054bb73638ed0779b78c5e9fe0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Cauê Assmann Atualizado"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "novoemail@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cliente atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "client": {
+                                            "$ref": "#/components/schemas/Client"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/favorites": {
+            "get": {
+                "tags": [
+                    "Favorites"
+                ],
+                "summary": "Lista os produtos favoritos do cliente autenticado",
+                "operationId": "d94e482213b6f61589bb2a1c9a12e49c",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Quantidade de itens por página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número da página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de favoritos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FavoriteProduct"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Favorites"
+                ],
+                "summary": "Adiciona um produto aos favoritos do cliente autenticado",
+                "operationId": "d38afff66a5d0aad6478400fdd4957d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": 999
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Produto adicionado aos favoritos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FavoriteProduct"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/favorites/{id}": {
+            "get": {
+                "tags": [
+                    "Favorites"
+                ],
+                "summary": "Exibe um produto favorito específico",
+                "operationId": "7183a8feea73337e406bb4e074016dc8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do produto favorito",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 999
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto favorito encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FavoriteProduct"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Favorito não encontrado"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Favorites"
+                ],
+                "summary": "Remove um produto da lista de favoritos",
+                "operationId": "2faf204717e64fed311880943a458859",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do produto favorito",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 999
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Removido com sucesso (sem conteúdo)"
+                    },
+                    "404": {
+                        "description": "Favorito não encontrado"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Client": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "0199203c-b199-7119-a6b0-33ab6edfd1a7"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Cauê Assmann Silva"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "caue2@gmail.com"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-06T18:14:32.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-06T18:14:32.000000Z"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateClientResponse": {
+                "properties": {
+                    "client": {
+                        "$ref": "#/components/schemas/Client"
+                    },
+                    "token": {
+                        "type": "string",
+                        "example": "1|Xs0meR4nd0mT0kenString"
+                    }
+                },
+                "type": "object"
+            },
+            "FavoriteProduct": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 999
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Fjallraven Backpack"
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 109.95
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                    },
+                    "review": {
+                        "type": "string",
+                        "example": "Ótimo custo-benefício!",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Autenticação via Bearer token (use 'Bearer {token}')",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Clients",
+            "description": "Clients"
+        },
+        {
+            "name": "Favorites",
+            "description": "Favorites"
+        }
+    ]
+}

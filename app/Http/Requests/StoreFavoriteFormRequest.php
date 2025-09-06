@@ -22,7 +22,7 @@ class StoreFavoriteFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $clientId = $this->user();
+        $clientId = $this->user()->id;
         return [
             "product_id" => [
                 "required",
