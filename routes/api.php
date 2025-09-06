@@ -14,4 +14,9 @@ Route::middleware("auth:sanctum")->group(function () {
 
     Route::post("/favorites", [FavoritesController::class, "store"]);
     Route::get("/favorites", [FavoritesController::class, "index"]);
+
+    // As seguintes rotas não estão no enunciado do desafio, mas considerei adiciona-las por fazer sentido,
+    // E num cenário real, dificilmente não seriam usadas
+
+    Route::delete("/favorites/{id}", [FavoritesController::class, "destroy"]);
 });

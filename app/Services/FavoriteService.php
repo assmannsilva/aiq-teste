@@ -59,4 +59,15 @@ class FavoriteService
 
         return $product;
     }
+
+    /**
+     * Delete a given favorite by product ID
+     * @param Client $client
+     * @param string $productId
+     * @return bool
+     */
+    public function deleteFavorite(string $productId): bool
+    {
+        return $this->favoriteRepository->deleteByProductId($productId);
+    }
 }
