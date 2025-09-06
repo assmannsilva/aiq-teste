@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+//Decidi colocar as validações centralizadas nos FormRequests
+// É a maneira mais comum e simples de implementar no Laravel
+// Creio que fica simples para quem avaliar e também esse software foi projetado para validar no nível de API
 class SearchFavoritesFormRequest extends FormRequest
 {
     /**

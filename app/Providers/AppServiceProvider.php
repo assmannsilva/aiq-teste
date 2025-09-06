@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Apenas adicionei isso para ter injeção de dependência
         $this->app->singleton(
             FakeStoreClient::class,
             fn() => new FakeStoreClient(new Client([

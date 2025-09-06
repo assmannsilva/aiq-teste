@@ -2,7 +2,8 @@
 
 namespace App\Dtos;
 
-
+// Dto criado para facilitar a transferência de dados do produto, já que não são necessariamente os mesmos dados do banco (nomes dos campos etc.)
+// tem a mesma nomenclatura que a API, e retornaremos na reposta essa mesmo corpo para maior clareza
 final class FakeStoreProductDto
 {
 

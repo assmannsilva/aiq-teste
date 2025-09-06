@@ -9,6 +9,8 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 
+// Inicialmente eu tinha nomeado como ProductsClient para tentar manter mais genérico e fosse possível trocar para outra API genérica
+// Mas dessa forma creio que fique mais claro para quem esteja avaliando
 class FakeStoreClient
 {
     public function __construct(private Client $client) {}

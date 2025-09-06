@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
+// As validações foram unificadas nos FormRequests, inclusive unique de clientes
 class UpdateClientFormRequest extends FormRequest
 {
     /**

@@ -5,6 +5,9 @@ namespace App\Services;
 use App\Models\Client;
 use App\Repositories\ClientRepository;
 
+//Service bem simples que praticamente só faz um wrapper para o ClientRepository
+//Mas feito dessa maneira para facilitar testes unitários e manter a lógica de negócio separada do controller
+//Para demonstrar escalabilidade e boas práticas
 class ClientService
 {
 

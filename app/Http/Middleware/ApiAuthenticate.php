@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
+// Esse middleware foi necessário de implementar porque ao deletar o cliente, a sessão fecha automaticamente e o Laravel tentava redirecionar para
+// a rota de login, isso era automático e não tem nenhuma referência a login no projeto
+// então precisei colocar esse middleware para captuar a exception e retornar não autorizado ao invés de redirecionar
 class ApiAuthenticate extends Authenticate
 {
 

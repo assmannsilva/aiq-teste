@@ -8,6 +8,14 @@ use App\External\FakeStoreClient;
 use App\Repositories\ProductsRepository;
 use Illuminate\Support\Facades\Cache;
 
+// Implementei isso para que sempre retorne um produto para o cliente, se possível
+// Tirei dados como rating e rating count, pois provavelmente estariam desatualizados e não são tão essenciais
+// O único problema seria o do preço, mas creio que seja melhor mostrar o produto com o preço desatualizado do que
+// mostrar uma mensagem de erro para o cliente
+// imagem e titulo acho que também tem pouco problema se estiverem desatualizados
+
+// A questão do preço resolvi usar o round mesmo porque o preço vem da API em duas casas decimais só
+// Poderia ser usado uma biblioteca também, mas é overkill aqui
 class ProductsService
 {
 

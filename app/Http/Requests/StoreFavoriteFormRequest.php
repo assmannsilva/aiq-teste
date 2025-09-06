@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+// As validações foram unificadas nos FormRequests, inclusive unique de clientes
 class StoreFavoriteFormRequest extends FormRequest
 {
     /**

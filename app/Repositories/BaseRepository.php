@@ -2,20 +2,32 @@
 
 namespace App\Repositories;
 
-use App\Models\Client;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\Pagination\Paginator as PaginatorContract;
 use Illuminate\Database\Eloquent\Model;
 
+//Classe base feita para implementar as funções comuns que são usadas no Eloquent
+// Feito dessa maneira para poder usar injeção de dependência e facilitar testes unitários
+// Mas são as mesmas funções comuns do Facade do Eloquent
 abstract class BaseRepository
 {
     protected string $modelClass;
 
+    /**
+     * Create a new query builder instance for the model.
+     * @return Builder
+     */
     protected function createQueryBuilder(): Builder
     {
         return \app($this->modelClass)->query();
     }
-
+    /**
+     * Get all records, optionally paginated.
+     * @param Builder|null $query
+     * @param bool $paginate
+     * @param int|null $perPage
+     * @return Builder|PaginatorContract
+     */
     public function getAll(?Builder $query, bool $paginate = false, ?int $perPage = null): Builder|PaginatorContract
     {
         if (!$query) $this->createQueryBuilder();
@@ -24,6 +36,12 @@ abstract class BaseRepository
         return $query->get();
     }
 
+    /**
+     * Find a record by its primary key.
+     * @param string $id
+     * @param bool $fail
+     * @return Model|null
+     */
     public function findByPrimaryKey(string $id, bool $fail = false): ?Model
     {
         $query = $this->createQueryBuilder();

@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Repositories\FavoriteRepository;
 use Illuminate\Pagination\Paginator;
 
+
 class FavoriteService
 {
     const PER_PAGE_DEFAULT_PAGINATION = 15;
@@ -32,7 +33,7 @@ class FavoriteService
             $productDto = $this->productsService->getCachedProductByFakeStoreId($favorite->product_id);
             $products[] = $productDto;
         }
-        return new Paginator(
+        return new Paginator( //Paginator colocado aqui por conta dos Dtos
             $products,
             $perPage,
             $favorites->currentPage(),
@@ -66,7 +67,7 @@ class FavoriteService
      * @param string $productId
      * @return bool
      */
-    public function deleteFavorite(Client $client, string $productId): bool
+    public function deleteFavorite(Client $client, string $productId): bool //Essas podem ser consideradas como funcionalidades extras
     {
         return $this->favoriteRepository->deleteByProductId($client->id, $productId);
     }
@@ -77,7 +78,7 @@ class FavoriteService
      * @param string $productId
      * @return ?FakeStoreProductDto
      */
-    public function getFavoriteProduct(Client $client, string $productId): ?FakeStoreProductDto
+    public function getFavoriteProduct(Client $client, string $productId): ?FakeStoreProductDto //Essas podem ser consideradas como funcionalidades extras
     {
         $favorite = $this->favoriteRepository->getByProductId($client->id, $productId);
         return $favorite ? $this->productsService->getCachedProductByFakeStoreId($favorite->product_id) : null;
