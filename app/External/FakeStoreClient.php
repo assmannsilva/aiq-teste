@@ -22,10 +22,9 @@ class FakeStoreClient
     public function getProductById(string $id): FakeStoreProductDto
     {
         try {
-            $response = $this->client->get($id);
+            $response = $this->client->get("products/$id");
             $body = $response->getBody()->getContents();
             $json = \json_decode($body, true);
-
             return new FakeStoreProductDto(
                 $json["id"],
                 $json["title"],
