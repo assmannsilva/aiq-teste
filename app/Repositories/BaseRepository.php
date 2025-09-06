@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Client;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\Pagination\Paginator as PaginatorContract;
 use Illuminate\Database\Eloquent\Model;
@@ -32,14 +33,14 @@ abstract class BaseRepository
     }
 
     /**
-     * saves a record
-     * @param Model $model
-     * @return Model $model
+     * Updates a record or creates if not exists
+     * @param array $matchingAttributes
+     * @param array $values
+     * @return Model 
      */
-    public function save(Model $model): Model
+    public function updateOrCreate(array $matchingAttributes, array $values): Model
     {
-        $model->save();
-        return $model;
+        return $this->modelClass::updateOrCreate($matchingAttributes, $values);
     }
 
     /**
