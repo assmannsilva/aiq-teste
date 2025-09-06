@@ -20,4 +20,11 @@ class FavoriteRepository extends BaseRepository
         $query = $this->createQueryBuilder();
         return $query->where("product_id", $productId)->where("client_id", $clientId)->delete() > 0;
     }
+
+
+    public function getByProductId(string $clientId, string $productId): ?Favorite
+    {
+        $query = $this->createQueryBuilder();
+        return $query->where("product_id", $productId)->where("client_id", $clientId)->first();
+    }
 }

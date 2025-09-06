@@ -35,9 +35,12 @@ class FavoritesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $productId)
     {
-        //
+        $client = $request->user();
+        $product = $this->favoriteService->getFavoriteProduct($client, $productId);
+        if ($product) return \response()->json($product);
+        return \response()->json(["message" => "Favorite not found"], 404);
     }
 
     /**

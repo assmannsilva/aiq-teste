@@ -70,4 +70,16 @@ class FavoriteService
     {
         return $this->favoriteRepository->deleteByProductId($client->id, $productId);
     }
+
+    /**
+     * Get a favorite product by product ID
+     * @param Client $client
+     * @param string $productId
+     * @return ?FakeStoreProductDto
+     */
+    public function getFavoriteProduct(Client $client, string $productId): ?FakeStoreProductDto
+    {
+        $favorite = $this->favoriteRepository->getByProductId($client->id, $productId);
+        return $favorite ? $this->productsService->getCachedProductByFakeStoreId($favorite->product_id) : null;
+    }
 }
