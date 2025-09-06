@@ -24,6 +24,14 @@ it('canot deletes a favorite due to not exists', function () {
     /** @var \App\Models\Client $client */
     $client = Client::factory()->create();
     actingAs($client, "sanctum");
+
+    $client2 = Client::factory()->create();
+    Favorite::factory()->create([
+        "client_id" => $client2->id,
+        "product_id" => 1
+    ]);
+
+
     $response = $this->delete('api/favorites/1');
     $response->assertStatus(404);
 });

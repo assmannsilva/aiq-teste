@@ -43,9 +43,10 @@ class FavoritesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $productId)
+    public function destroy(Request $request, string $productId)
     {
-        $deleted = $this->favoriteService->deleteFavorite($productId);
+        $client = $request->user();
+        $deleted = $this->favoriteService->deleteFavorite($client, $productId);
         if ($deleted) return \response()->json(null, 204);
         return \response()->json(["message" => "Favorite not found"], 404);
     }

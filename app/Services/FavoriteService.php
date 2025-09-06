@@ -66,8 +66,8 @@ class FavoriteService
      * @param string $productId
      * @return bool
      */
-    public function deleteFavorite(string $productId): bool
+    public function deleteFavorite(Client $client, string $productId): bool
     {
-        return $this->favoriteRepository->deleteByProductId($productId);
+        return $this->favoriteRepository->deleteByProductId($client->id, $productId);
     }
 }

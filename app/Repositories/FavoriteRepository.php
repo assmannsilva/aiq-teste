@@ -15,9 +15,9 @@ class FavoriteRepository extends BaseRepository
         return $this->getAll($query, \true, $perPage);
     }
 
-    public function deleteByProductId(string $productId): bool
+    public function deleteByProductId(string $clientId, string $productId): bool
     {
         $query = $this->createQueryBuilder();
-        return $query->where("product_id", $productId)->delete() > 0;
+        return $query->where("product_id", $productId)->where("client_id", $clientId)->delete() > 0;
     }
 }

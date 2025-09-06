@@ -19,4 +19,5 @@ Route::middleware("auth:sanctum")->group(function () {
     // E num cenário real, dificilmente não seriam usadas
 
     Route::delete("/favorites/{id}", [FavoritesController::class, "destroy"]);
+    Route::get("/favorites/{id}", [FavoritesController::class, "show"]);
 });
