@@ -14,7 +14,7 @@ Back-end do sistema **AIQ-Teste**, desenvolvido com [Laravel](https://laravel.co
 - Também foi utilizado o MakeFile, normalmente vem instalado no Linux, mas caso não esteja tem nesse [link](https://www.geeksforgeeks.org/installation-guide/how-to-install-make-on-ubuntu/) um tutorial
 
 
-Segue também link do Swagger da API depois de http://localhost:8000/api/documentation
+Segue também link do Swagger da API depois de estar com o programa rodando http://localhost:8000/api/documentation
 
 ## 🚀 Tecnologias Utilizadas
 
