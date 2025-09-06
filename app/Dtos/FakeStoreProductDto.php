@@ -11,7 +11,7 @@ final class FakeStoreProductDto
         public readonly string $title,
         public readonly string $image,
         public readonly float $price,
-        public readonly ?float $rate,
-        public readonly ?int $ratingCount
+        public readonly ?float $rate = null,
+        public readonly ?int $ratingCount = null,
     ) {}
 }
