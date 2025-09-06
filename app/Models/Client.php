@@ -16,6 +16,11 @@ class Client extends Authenticatable
         'email',
     ];
 
+    protected $hidden = [
+        'remember_token',
+        "deleted_at",
+    ];
+
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
