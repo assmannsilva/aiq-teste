@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Dtos\FakeStoreProductDto;
 use App\Models\Client;
 use App\Repositories\FavoriteRepository;
+use Illuminate\Pagination\Paginator;
 
 class FavoriteService
 {
@@ -19,9 +20,9 @@ class FavoriteService
      * Get a list of client Favorites
      * @param Client $client
      * @param int $perPage
-     * @return array {productDto: ProductDto}
+     * @return Paginator
      */
-    public function listClientFavorites(Client $client, ?int $perPage): array
+    public function listClientFavorites(Client $client, ?int $perPage): Paginator
     {
         if (!$perPage) $perPage = self::PER_PAGE_DEFAULT_PAGINATION;
 
@@ -31,7 +32,15 @@ class FavoriteService
             $productDto = $this->productsService->getCachedProductByFakeStoreId($favorite->product_id);
             $products[] = $productDto;
         }
-        return $products;
+        return new Paginator(
+            $products,
+            $perPage,
+            $favorites->currentPage(),
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
     }
 
     /**
