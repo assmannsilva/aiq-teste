@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->foreignUuid("client_id")->constrained("clients");
             $table->timestamps();
-            $table->string("product_id");
+            $table->string("product_id")->constrained("products", "fakestore_product_id");
             $table->unique(["product_id", "client_id"]);
         });
     }
