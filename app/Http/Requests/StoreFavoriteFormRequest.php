@@ -28,7 +28,7 @@ class StoreFavoriteFormRequest extends FormRequest
             "product_id" => [
                 "required",
                 "numeric",
-                Rule::unique("favorites", "product_id")->where(fn($query) => $query->where("client_id", $clientId))
+                Rule::unique("favorites", "fake_store_product_id")->where(fn($query) => $query->where("client_id", $clientId))
             ]
         ];
     }
