@@ -4,14 +4,14 @@ Back-end do sistema **AIQ-Teste**, desenvolvido com [Laravel](https://laravel.co
 
 ## 🧾 Sobre o Projeto
 
-Esse projeto foi desenvolvido buscando maior disponibilidade e performance para o desafio. 
-Para isso implementei um banco de dados auxiliar de produtos para ter a disponibilidade desses dados caso a API apresente instabilidades
-Também foi implementado um cache para os Produtos para evitar chamadas a FakeStore
+- Esse projeto foi desenvolvido buscando maior disponibilidade e performance para o desafio. 
+- Para isso implementei um banco de dados auxiliar de produtos para ter a disponibilidade desses dados caso a API apresente instabilidades
+- Também foi implementado um cache para os Produtos para evitar chamadas a FakeStore
 
-Foram adicionados também os Repositories e Services Patterns para maior escalabilidade e legilibilidade
-Foi implementado injeção de dependência pra facilitar os testes automatizados, ao invés dos facades
+- Foram adicionados também os Repositories e Services Patterns para maior escalabilidade e legilibilidade
+- Foi implementado injeção de dependência pra facilitar os testes automatizados, ao invés dos facades
 
-Também foi utilizado o MakeFile, normalmente vem instalado no Linux, mas caso não esteja tem nesse [link](https://www.geeksforgeeks.org/installation-guide/how-to-install-make-on-ubuntu/) um tutorial
+- Também foi utilizado o MakeFile, normalmente vem instalado no Linux, mas caso não esteja tem nesse [link](https://www.geeksforgeeks.org/installation-guide/how-to-install-make-on-ubuntu/) um tutorial
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -71,8 +71,6 @@ make test
 
 ---
 ```
-
-### 11. **📥 Endpoints Principais**
 ## 📥 Endpoints Principais
 
 ### 🧑 Clientes
