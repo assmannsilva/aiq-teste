@@ -60,10 +60,10 @@ it('returns a list of all possible favorite products paginated', function () {
     $response->assertJsonCount(5, 'data');
 });
 
-it('returns a list of maximum possible favorite products paginated', function () {
+it('cannot search with a per_page greater than 100', function () {
     /** @var \App\Models\Client $client */
     $client = Client::factory()->create();
-    $favorites = Favorite::factory()->count(16)->create([
+    $favorites = Favorite::factory()->count(100)->create([
         'client_id' => $client->id,
     ]);
 
@@ -71,6 +71,5 @@ it('returns a list of maximum possible favorite products paginated', function ()
 
     $response = $this->getJson('/api/favorites?per_page=100000');
 
-    $response->assertStatus(200);
-    $response->assertJsonCount(15, 'data');
+    $response->assertStatus(422);
 });
