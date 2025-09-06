@@ -17,8 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (ExternalApiException $e) {
-            $status = $e->getCode() == 400 ? 400 : 502;
-            $message = $e->getCode() == 400 ? $e->getMessage() : "External Services Unavailable";
+            [$status, $message] = in_array($e->getCode(), [400, 404]) 
+            ? [$e->getCode(), $e->getMessage()] 
+            : [502, "External Services Unavailable"];
 
             return response()->json(['error' => $message], $status);
         });
