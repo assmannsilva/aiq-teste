@@ -8,6 +8,6 @@ Route::post("/clients", [ClientsController::class, "store"]);
 
 Route::middleware("auth:sanctum")->group(function () {
     Route::get("/clients/me", [ClientsController::class, "show"]);
-    Route::patch("/clients/me", [ClientController::class, "update"]);
-    Route::delete("/clients/me", [ClientController::class, "destroy"]);
+    Route::patch("/clients/me", [ClientsController::class, "update"]);
+    Route::delete("/clients/me", [ClientsController::class, "destroy"]);
 });
