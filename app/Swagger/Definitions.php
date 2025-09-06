@@ -29,7 +29,8 @@ namespace App\Swagger;
  * @OA\Property(property="title", type="string", example="Fjallraven Backpack"),
  * @OA\Property(property="price", type="number", format="float", example=109.95),
  * @OA\Property(property="image", type="string", example="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"),
- * @OA\Property(property="review", type="string", nullable=true, example="Ótimo custo-benefício!")
+ * @OA\Property(property="rate", type="string", nullable=true, example="4.6"),
+ * @OA\Property(property="ratingCount", type="integer", nullable=true, example=400)
  * )
  */
 class Definitions {}
