@@ -15,7 +15,7 @@ abstract class BaseRepository
         return \app($this->modelClass)->query();
     }
 
-    public function getAll(?Builder $query, bool $paginate = false, ?int $perPage): Builder|PaginatorContract
+    public function getAll(?Builder $query, bool $paginate = false, ?int $perPage = null): Builder|PaginatorContract
     {
         if (!$query) $this->createQueryBuilder();
         if ($paginate) return $query->paginate($perPage);
