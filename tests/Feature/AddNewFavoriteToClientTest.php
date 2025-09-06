@@ -55,7 +55,7 @@ it('successfully adds a new favorite product to client from the API', function (
 
     $this->assertDatabaseHas('favorites', [
         'client_id' => $client->id,
-        'product_id' => $fakestoreId,
+        'fake_store_product_id' => $fakestoreId,
     ]);
 
     $this->assertDatabaseHas('products', [
@@ -93,6 +93,6 @@ it('cannot adds a new favorite product due to external api error and no data in 
 
     $this->assertDatabaseMissing('favorites', [
         'client_id' => $client->id,
-        'product_id' => $fakestoreId,
+        'fake_store_product_id' => $fakestoreId,
     ]);
 });

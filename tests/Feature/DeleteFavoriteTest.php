@@ -13,7 +13,7 @@ it('sucessfully deletes a favorite', function () {
     actingAs($client, "sanctum");
     Favorite::factory()->create([
         "client_id" => $client->id,
-        "product_id" => 1
+        "fake_store_product_id" => 1
     ]);
 
     $response = $this->delete('api/favorites/1');
@@ -28,7 +28,7 @@ it('canot deletes a favorite due to not exists', function () {
     $client2 = Client::factory()->create();
     Favorite::factory()->create([
         "client_id" => $client2->id,
-        "product_id" => 1
+        "fake_store_product_id" => 1
     ]);
 
 

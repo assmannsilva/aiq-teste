@@ -19,7 +19,7 @@ class FavoriteFactory extends Factory
     {
         return [
             'client_id' => Client::factory(),
-            'product_id' => $this->faker->unique()->numberBetween(1, 1000),
+            'fake_store_product_id' => $this->faker->unique()->numberBetween(1, 1000),
         ];
     }
 }

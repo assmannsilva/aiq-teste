@@ -11,7 +11,7 @@ class Favorite extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'product_id',
+        'fake_store_product_id',
         'client_id'
     ];
 

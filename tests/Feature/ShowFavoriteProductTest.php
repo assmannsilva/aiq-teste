@@ -30,7 +30,7 @@ it('successfully retrieves a favorite product', function () {
 
     $favorite = Favorite::factory()->create([
         "client_id" => $client->id,
-        "product_id" => 1
+        "fake_store_product_id" => 1
     ]);
 
     $response = $this->get('api/favorites/1');

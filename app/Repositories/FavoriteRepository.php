@@ -30,7 +30,7 @@ class FavoriteRepository extends BaseRepository
     public function deleteByProductId(string $clientId, string $productId): bool
     {
         $query = $this->createQueryBuilder();
-        return $query->where("product_id", $productId)->where("client_id", $clientId)->delete() > 0;
+        return $query->where("fake_store_product_id", $productId)->where("client_id", $clientId)->delete() > 0;
     }
 
     /**
@@ -42,6 +42,6 @@ class FavoriteRepository extends BaseRepository
     public function getByProductId(string $clientId, string $productId): ?Favorite
     {
         $query = $this->createQueryBuilder();
-        return $query->where("product_id", $productId)->where("client_id", $clientId)->first();
+        return $query->where("fake_store_product_id", $productId)->where("client_id", $clientId)->first();
     }
 }

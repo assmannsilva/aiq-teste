@@ -30,7 +30,7 @@ class FavoriteService
         $favorites = $this->favoriteRepository->getByClientId($client->id, self::PER_PAGE_DEFAULT_PAGINATION);
         $products = [];
         foreach ($favorites as $favorite) {
-            $productDto = $this->productsService->getCachedProductByFakeStoreId($favorite->product_id);
+            $productDto = $this->productsService->getCachedProductByFakeStoreId($favorite->fake_store_product_id);
             $products[] = $productDto;
         }
         return new Paginator( //Paginator colocado aqui por conta dos Dtos
@@ -54,7 +54,7 @@ class FavoriteService
     {
         $product = $this->productsService->getCachedProductByFakeStoreId($productId);
         $this->favoriteRepository->create([
-            "product_id" => $product->id,
+            "fake_store_product_id" => $product->id,
             "client_id" => $client->id
         ]);
 
@@ -81,6 +81,6 @@ class FavoriteService
     public function getFavoriteProduct(Client $client, string $productId): ?FakeStoreProductDto //Essas podem ser consideradas como funcionalidades extras
     {
         $favorite = $this->favoriteRepository->getByProductId($client->id, $productId);
-        return $favorite ? $this->productsService->getCachedProductByFakeStoreId($favorite->product_id) : null;
+        return $favorite ? $this->productsService->getCachedProductByFakeStoreId($favorite->fake_store_product_id) : null;
     }
 }
