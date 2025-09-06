@@ -2,14 +2,14 @@
 
 namespace App\External;
 
-use App\Dtos\ProductDto;
+use App\Dtos\FakeStoreProductDto;
 use App\Exceptions\ExternalApiException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 
-class ProductsClient
+class FakeStoreClient
 {
     public function __construct(private Client $client) {}
 
@@ -17,16 +17,16 @@ class ProductsClient
      * Get Product Info in FakeStore API
      * @param string $id
      * @throws ExternalApiException
-     * @return ProductDto
+     * @return FakeStoreProductDto
      */
-    public function getProductById(string $id): ProductDto
+    public function getProductById(string $id): FakeStoreProductDto
     {
         try {
             $response = $this->client->get($id);
             $body = $response->getBody()->getContents();
             $json = \json_decode($body, true);
 
-            return new ProductDto(
+            return new FakeStoreProductDto(
                 $json["id"],
                 $json["title"],
                 $json["image"],

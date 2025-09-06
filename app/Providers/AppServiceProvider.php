@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\External\ProductsClient;
+use App\External\FakeStoreClient;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,8 +14,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(
-            ProductsClient::class,
-            fn() => new ProductsClient(new Client([
+            FakeStoreClient::class,
+            fn() => new FakeStoreClient(new Client([
                 'base_uri' => "https://fakestoreapi.com/",
                 'timeout' => 15
             ]))

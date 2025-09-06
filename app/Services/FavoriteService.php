@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Dtos\ProductDto;
-use App\External\ProductsClient;
+use App\Dtos\FakeStoreProductDto;
+use App\External\FakeStoreClient;
 use App\Models\Client;
 use App\Repositories\FavoriteRepository;
 use Illuminate\Support\Facades\Cache;
@@ -13,20 +13,20 @@ class FavoriteService
     const PER_PAGE_DEFAULT_PAGINATION = 15;
 
     public function __construct(
-        private ProductsClient $productsClient,
+        private FakeStoreClient $fakeStoreClient,
         private FavoriteRepository $favoriteRepository
     ) {}
 
 
-    private function getCachedProduct(int $productId): ProductDto
+    private function getCachedProduct(int $productId): FakeStoreProductDto
     {
         return Cache::remember("products." . $productId, 3600, function () use ($productId) {
-            return $this->productsClient->getProductById($productId);
+            return $this->fakeStoreClient->getProductById($productId);
         });
     }
 
     /**
-     * Get a lista of client Favorites
+     * Get a list of client Favorites
      * @param Client $client
      * @param int $perPage
      * @return array {productDto: ProductDto}
@@ -48,11 +48,11 @@ class FavoriteService
      * Add a given Product ID as favorite to Client
      * @param Client $client
      * @param string $productId
-     * @return ProductDto
+     * @return FakeStoreProductDto
      */
-    public function addFavoriteIntoClient(Client $client, string $productId): ProductDto
+    public function addFavoriteIntoClient(Client $client, string $productId): FakeStoreProductDto
     {
-        $product = $this->productsClient->getProductById($productId);
+        $product = $this->fakeStoreClient->getProductById($productId);
 
         $this->favoriteRepository->create([
             "product_id" => $product->id,

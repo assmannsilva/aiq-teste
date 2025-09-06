@@ -3,7 +3,7 @@
 namespace App\Dtos;
 
 
-final class ProductDto
+final class FakeStoreProductDto
 {
 
     public function __construct(
