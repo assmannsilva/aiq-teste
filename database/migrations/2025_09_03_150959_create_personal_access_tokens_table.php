@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // Usando a tabela padrão do sanctum para simplificar
         Schema::create('personal_access_tokens', function (Blueprint $table) {
-            $table->uuid("id")->primary();
+            $table->id();
             $table->morphs('tokenable');
             $table->text('name');
             $table->string('token', 64)->unique();
