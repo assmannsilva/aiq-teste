@@ -25,8 +25,12 @@ class FakeStoreClient
     {
         try {
             $response = $this->client->get("products/$id");
+
             $body = $response->getBody()->getContents();
             $json = \json_decode($body, true);
+            if(!isset($json["id"])) throw new ExternalApiException("Product Not Found", 404,null);
+            
+
             return new FakeStoreProductDto(
                 $json["id"],
                 $json["title"],
